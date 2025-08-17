@@ -1,0 +1,122 @@
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #7b42f6;
+  color: white;
+}
+
+.fixed-toolbar0 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Adjust z-index as needed */
+}
+
+.fixed-toolbar {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0;
+  z-index: 1000;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.app-icon {
+  font-size: 35px;
+  width: auto;
+  height: auto;
+  color: black;
+}
+
+.logo-btn {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a {
+  color: white !important;
+  font-weight: 400;
+  text-decoration: none;
+
+  &:hover {
+    color: black !important;
+    border-radius: 5px;
+  }
+
+  &.active {
+    color: white !important;
+  }
+}
+
+.logout-btn {
+  border-radius: 10px;
+  padding: 4px 12px;
+  background-color: white;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #7b42f6;
+  }
+}
+
+.active-link {
+  position: relative;
+}
+
+.active-link::after {
+  content: "";
+  position: absolute;
+  bottom: 4px; /* distance between text and line */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 1px;
+  background-color: currentColor;
+  pointer-events: none;
+}
+
+.app-drawer-containe {
+  height: 85vh;
+}
+
+.drawer-side {
+  width: 30vh;
+  height: auto;
+  padding-top: 23px;
+}
+
+.icon-nav {
+  color: #7b42f6;
+  margin-right: 16px;
+}
+
+.footer {
+  text-align: center;
+  padding: 16px;
+  font-weight: 500;
+  font-size: 14px;
+  margin-top: auto;
+}
+
+@media (max-width: 600px) {
+  .nav-links {
+    display: none; // Or make it a side-drawer if needed
+  }
+}

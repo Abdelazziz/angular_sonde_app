@@ -1,0 +1,74 @@
+<mat-card class="card-table1">
+  <mat-card-title>{{ title }}</mat-card-title>
+
+  <app-filter-patient-data />
+
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z2" matSort>
+      <!-- Index Column -->
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef sticky>#</th>
+        <td mat-cell *matCellDef="let element">{{ element.index }}</td>
+      </ng-container>
+
+      <!-- Nom -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <!-- Téléphone -->
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Téléphone</th>
+        <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+      </ng-container>
+
+      <!-- Adresse -->
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Adresse</th>
+        <td mat-cell *matCellDef="let element">{{ element.address }}</td>
+      </ng-container>
+
+      <!-- Date début -->
+      <ng-container matColumnDef="startdate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Début</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.startdate | date : "dd/MM/yyyy" }}
+        </td>
+      </ng-container>
+
+      <!-- Date fin -->
+      <ng-container matColumnDef="enddate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fin</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.enddate | date : "dd/MM/yyyy" }}
+        </td>
+      </ng-container>
+
+      <!-- Médecin -->
+      <ng-container matColumnDef="doctorName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Médecin</th>
+        <td mat-cell *matCellDef="let element">{{ element.doctorName }}</td>
+      </ng-container>
+
+      <!-- En-têtes et cellules -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+
+  <mat-paginator
+    [length]="totalElements"
+    showFirstLastButtons
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[10, 25, 50, 100]"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
+
+  @if ( isLoading() ) {<mat-spinner diameter="40"> </mat-spinner>}
+  <br />
+  @if ( errorMessage() ) {
+  <mat-error>{{ errorMessage() }}</mat-error>
+  }
+</mat-card>

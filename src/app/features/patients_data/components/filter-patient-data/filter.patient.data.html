@@ -1,0 +1,87 @@
+<mat-card class="filter-card">
+  <form [formGroup]="filterForm" (ngSubmit)="onSubmit()" class="filter-form">
+    <!-- Row 1: Nom + Médecin -->
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Nom</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Médecin</mat-label>
+        <mat-select formControlName="doctor">
+          <mat-option value="">Tous</mat-option>
+          @for (doc of doctors; track doc.id) {
+          <mat-option [value]="doc.userName">
+            {{ doc.name }}
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Row 2: Sexe (Homme / Femme inline) -->
+    <div class="form-row align-center margin-sex-group">
+      <span class="chip-label">Sexe :</span>
+      <div class="chip-group">
+        <mat-chip
+          (click)="setSexFilter('H')"
+          [ngClass]="{ selected: filterForm.value.sex === 'H' }"
+          class="sex-chip"
+          selectable
+        >
+          Homme
+        </mat-chip>
+        <mat-chip
+          (click)="setSexFilter('F')"
+          [ngClass]="{ selected: filterForm.value.sex === 'F' }"
+          class="sex-chip"
+          selectable
+        >
+          Femme
+        </mat-chip>
+      </div>
+    </div>
+
+    <!-- Row 3: Dates + Buttons -->
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Du</mat-label>
+        <input
+          matInput
+          [matDatepicker]="startPicker"
+          formControlName="startDate"
+        />
+        <mat-datepicker-toggle matSuffix [for]="startPicker" />
+        <mat-datepicker #startPicker />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label> Au </mat-label>
+        <input matInput [matDatepicker]="endPicker" formControlName="endDate" />
+        <mat-datepicker-toggle matSuffix [for]="endPicker" />
+        <mat-datepicker #endPicker />
+      </mat-form-field>
+
+      <div class="button-group">
+        <button
+          mat-stroked-button
+          type="button"
+          class="reset-button"
+          (click)="resetFilters()"
+        >
+          Réinitialiser
+        </button>
+
+        <button
+          mat-raised-button
+          color="primary"
+          class="search-button"
+          type="submit"
+        >
+          Rechercher
+        </button>
+      </div>
+    </div>
+  </form>
+</mat-card>

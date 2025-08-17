@@ -1,0 +1,84 @@
+<div class="layout">
+  <mat-toolbar class="toolbar fixed-toolbar">
+    <!-- Icône Home -->
+    <button mat-icon-button class="logo-btn" aria-label="Home">
+      <a mat-button disableRipple routerLink="/home">
+        <mat-icon class="app-icon">home</mat-icon></a
+      >
+    </button>
+
+    <!-- Liens Accueil / Contact (gauche) -->
+    <nav class="nav-links-left">
+      <a
+        mat-button
+        disableRipple
+        routerLink="/home/patient-data"
+        routerLinkActive="active-link"
+      >
+        Accueil</a
+      >
+      <a
+        mat-button
+        disableRipple
+        routerLink="/home/patient-data-history"
+        routerLinkActive="active-link"
+        >Historique</a
+      >
+      <a
+        mat-button
+        disableRipple
+        routerLink="/home/doctors"
+        routerLinkActive="active-link"
+        >Médecins</a
+      >
+    </nav>
+
+    <!-- Espacement automatique -->
+    <span class="spacer"></span>
+
+    <!-- Menu utilisateur (droite) -->
+    <button matIconButton [matMenuTriggerFor]="menu" class="logo-btn">
+      <mat-icon class="app-icon">person_pin</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <mat-drawer-container class="app-drawer-containe">
+    <mat-drawer mode="side" class="drawer-side" opened>
+      <mat-nav-list>
+        <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link">
+          <mat-icon class="icon-nav">dashboard</mat-icon>
+          <span class="nav-label">Dashboard</span>
+        </a>
+        <a mat-list-item routerLink="/patients" routerLinkActive="active-link">
+          <mat-icon class="icon-nav">people</mat-icon>
+          <span class="nav-label">Ajouter Patients</span>
+        </a>
+        <a mat-list-item routerLink="/reports" routerLinkActive="active-link">
+          <mat-icon class="icon-nav">bar_chart</mat-icon>
+          <span class="nav-label">Reports</span>
+        </a>
+        <a mat-list-item routerLink="/settings" routerLinkActive="active-link">
+          <mat-icon class="icon-nav">settings</mat-icon>
+          <span class="nav-label">Settings</span>
+        </a>
+      </mat-nav-list>
+    </mat-drawer>
+
+    <mat-drawer-content>
+      <div class="main-content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span>&copy; {{ currentYear }} ITBridge. All rights reserved</span>
+  </footer>
+</div>

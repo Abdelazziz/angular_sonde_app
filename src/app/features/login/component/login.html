@@ -1,0 +1,63 @@
+<div class="page-container">
+  <div class="image-section">
+    <img src="images/login_image.png" alt="Login Visual" />
+  </div>
+
+  <div class="form-section">
+    <div class="login-container">
+      <h1 class="login-title">Welcome</h1>
+      <p class="login-subtitle">Sign In to continue</p>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="login-field">
+          <mat-icon matPrefix color="primary">person</mat-icon>
+          <input matInput placeholder="ID" formControlName="id" />
+
+          @if (loginForm.get('id')?.touched &&
+          loginForm.get('id')?.hasError('required')) {
+          <mat-error> {{ erroEmptyID }} </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="login-field">
+          <mat-icon matPrefix color="primary">lock</mat-icon>
+          <input
+            matInput
+            [type]="hidePassword() ? 'password' : 'text'"
+            placeholder="Password"
+            formControlName="password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="togglePasswordVisibility()"
+          >
+            <mat-icon>{{
+              hidePassword() ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+
+          @if (loginForm.get('password')?.touched &&
+          loginForm.get('password')?.hasError('required')) {
+          <mat-error> {{ erroEmptyPassword }} </mat-error>
+          }
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          class="login-button"
+          type="submit"
+          [disabled]="loading()"
+        >
+          {{ loading() ? "Logging in..." : "Login" }}
+        </button>
+
+        @if (errorMessage()) {
+        <mat-error class="error-margin"> {{ errorMessage() }} </mat-error>
+        }
+      </form>
+    </div>
+  </div>
+</div>

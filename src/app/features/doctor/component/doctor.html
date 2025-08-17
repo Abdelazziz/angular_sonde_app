@@ -1,0 +1,33 @@
+<mat-card class="card-table1">
+  <mat-card-title>Liste des Médecins</mat-card-title>
+
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z2" matSort>
+      <!-- Index Column -->
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef sticky>#</th>
+        <td mat-cell *matCellDef="let element">{{ element.index }}</td>
+      </ng-container>
+
+      <!-- Nom -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <!-- Role -->
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.role.replace("ROLE_", "") }}
+        </td>
+      </ng-container>
+
+      <!-- En-têtes et cellules -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+
+  @if ( isLoading() ) {<mat-spinner diameter="40"> </mat-spinner>}
+</mat-card>

@@ -1,0 +1,32 @@
+table {
+  width: 100%;
+}
+
+mat-card {
+  padding: 8px;
+}
+
+mat-card-title {
+  padding: 8px 0px 0px 8px;
+}
+
+mat-header-cell,
+mat-cell {
+  padding: 8px;
+}
+
+.table-container {
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+.card-table {
+  margin-top: 5em;
+}
+
+.mat-column-index {
+  width: 32px;
+  border-right: 0.5px solid currentColor;
+  padding-right: 24px;
+  text-align: center;
+}

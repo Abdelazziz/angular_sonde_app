@@ -3,6 +3,28 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "npm: start:hmr",
+      "type": "shell",
+      "command": "npm run start:hmr",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": [
+          {
+            "regexp": ".",
+            "file": 1,
+            "location": 2,
+            "message": 3
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Watch mode enabled. Watching for file changes...",
+          "endsPattern": "Application bundle generation complete."
+        }
+      }
+    },
+    {
       "type": "npm",
       "script": "start",
       "isBackground": true,
