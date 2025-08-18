@@ -9,10 +9,10 @@ import { appInterceptor } from './core/interceptor/app-interceptor';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import { patientsReducer } from './features/patients_data/components/patients-data/state/patients.data.reducer';
-import { filterPatientsReducer } from './features/patients_data/components/filter-patient-data/state/filter.patient.data.reducer';
-import * as PatientsDataEffects from './features/patients_data/components/patients-data/state/patients.data.effects';
-import * as PatientsFilterDataEffects from './features/patients_data/components/filter-patient-data/state/filter.patient.data.effects';
+import { patientsReducer } from './features/patients_data/state/patients-data/patients.data.reducer';
+import { filterPatientsReducer } from './features/patients_data/state/filter-patient-data/filter.patient.data.reducer';
+import * as PatientsDataEffects from './features/patients_data/state/patients-data/patients.data.effects';
+import * as PatientsFilterDataEffects from './features/patients_data/state/filter-patient-data/filter.patient.data.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [

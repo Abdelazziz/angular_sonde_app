@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { DoctorResponse } from '../../../../doctor/models/doctor.response';
+import { DoctorResponse } from '../../../doctor/models/doctor.response';
 
 export const loadDoctors = createAction('[Doctors] Load Doctors Data');
 

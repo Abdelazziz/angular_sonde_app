@@ -9,13 +9,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FilterPatientData } from '../filter-patient-data/filter.patient.data';
 import { FilterRequest } from '../../models/filter.request';
 import { ActivatedRoute } from '@angular/router';
-import * as PatientsDataActions from './state/patients.data.actions';
+import * as PatientsDataActions from '../../state/patients-data/patients.data.actions';
 import { Store } from '@ngrx/store';
 import {
   selectAllPatients,
   selectPatientsLoading,
   selectPatientsError,
-} from './state/patients.data.selector';
+} from '../../state/patients-data/patients.data.selector';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({

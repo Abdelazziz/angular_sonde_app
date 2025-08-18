@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import * as PatientsActions from './patients.data.actions';
-import { PatientDataResponse } from '../../../models/patient.data.response';
-import { FilterRequest } from '../../../models/filter.request';
+import { FilterRequest } from '../../models/filter.request';
+import { PatientDataResponse } from '../../models/patient.data.response';
 
 export interface PatientsDataState {
   patientsData: PatientDataResponse[];

@@ -1,13 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  DestroyRef,
-  EventEmitter,
-  inject,
-  OnInit,
-  Output,
-  signal,
-} from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
@@ -22,13 +14,13 @@ import { DoctorResponse } from '../../../doctor/models/doctor.response';
 import { MatCard } from '@angular/material/card';
 import { FilterRequest } from '../../models/filter.request';
 import { Store } from '@ngrx/store';
-import * as filterPatients from './state/filter.patient.data.actions';
+import * as filterPatients from '../../state/filter-patient-data/filter.patient.data.actions';
 import {
   selectAllDoctors,
   selectDoctorsError,
   selectDoctorsLoading,
-} from './state/filter.patient.data.selector';
-import * as PatientsDataActions from '../patients-data/state/patients.data.actions';
+} from '../../state/filter-patient-data/filter.patient.data.selector';
+import * as PatientsDataActions from '../../state/patients-data/patients.data.actions';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

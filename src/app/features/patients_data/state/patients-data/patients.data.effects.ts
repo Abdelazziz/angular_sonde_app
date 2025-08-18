@@ -1,10 +1,10 @@
-import { DestroyRef, inject } from '@angular/core';
+import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as PatientsActions from './patients.data.actions';
 import { mergeMap, map, catchError, of, withLatestFrom } from 'rxjs';
-import { PatientDataService } from '../../../services/patient-data.service';
 import { selectFilterRequest } from './patients.data.selector';
 import { Store } from '@ngrx/store';
+import { PatientDataService } from '../../services/patient-data.service';
 
 export const loadPatients$ = createEffect(
   (

@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { FilterRequest } from '../../../models/filter.request';
-import { PatientDataResponse } from '../../../models/patient.data.response';
+import { FilterRequest } from '../../models/filter.request';
+import { PatientDataResponse } from '../../models/patient.data.response';
 
 export const loadPatientsData = createAction(
   '[Patients] Load Patients Data',
