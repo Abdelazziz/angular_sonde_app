@@ -87,6 +87,8 @@ export class PatientData implements OnInit {
           this.currentPage = 0;
           this.totalElements = 0;
         }
+
+        this.errorMessage.set('');
       });
 
     this.store

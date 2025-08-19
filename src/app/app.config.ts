@@ -11,8 +11,10 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { patientsReducer } from './features/patients_data/state/patients-data/patients.data.reducer';
 import { filterPatientsReducer } from './features/patients_data/state/filter-patient-data/filter.patient.data.reducer';
+import { doctorReducer } from './features/doctor/state/doctors.reducer';
 import * as PatientsDataEffects from './features/patients_data/state/patients-data/patients.data.effects';
 import * as PatientsFilterDataEffects from './features/patients_data/state/filter-patient-data/filter.patient.data.effects';
+import * as DoctorsEffects from './features/doctor/state/doctors.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,7 +25,12 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       patientsData: patientsReducer,
       filterDataPatientReducer: filterPatientsReducer,
+      doctors: doctorReducer,
     }),
-    provideEffects(PatientsDataEffects, PatientsFilterDataEffects),
+    provideEffects(
+      PatientsDataEffects,
+      PatientsFilterDataEffects,
+      DoctorsEffects
+    ),
   ],
 };

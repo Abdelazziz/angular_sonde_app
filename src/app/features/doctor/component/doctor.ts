@@ -6,7 +6,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { DoctorService } from '../services/doctor.service';
 import { DoctorResponse } from '../models/doctor.response';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Store } from '@ngrx/store';
+import * as DoctorsActions from '../state/doctors.actions';
+import {
+  selectAllDoctors,
+  selectDoctorLoading,
+  selectDoctorError,
+} from '../state/doctors.selector';
 
 @Component({
   selector: 'app-doctor',
@@ -21,8 +27,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './doctor.scss',
 })
 export class Doctor implements OnInit {
-  private doctorService = inject(DoctorService);
-  private destroyRef = inject(DestroyRef);
+  private store = inject(Store);
 
   displayedColumns: string[] = ['index', 'name', 'role'];
 
@@ -33,27 +38,30 @@ export class Doctor implements OnInit {
 
   ngOnInit() {
     this.fetechData();
+
+    this.store.select(selectAllDoctors).subscribe((doctors) => {
+      this.dataSource = doctors.map((item, i) => ({
+        ...item,
+        index: i + 1,
+      }));
+
+      this.errorMessage.set('');
+    });
+
+    this.store.select(selectDoctorLoading).subscribe((loading) => {
+      this.isLoading.set(loading);
+    });
+
+    this.store.select(selectDoctorError).subscribe((error) => {
+      if (error) {
+        this.errorMessage.set(error);
+      } else {
+        this.errorMessage.set('');
+      }
+    });
   }
 
   fetechData() {
-    this.isLoading.set(true);
-    this.doctorService
-      .getDoctors()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (res) => {
-          this.dataSource = res.map((item, i) => ({
-            ...item,
-            index: i + 1,
-          }));
-
-          this.isLoading.set(false);
-        },
-        error: (err) => {
-          this.isLoading.set(false);
-          console.error('fetch data failed', err);
-          this.errorMessage.set(err as string);
-        },
-      });
+    this.store.dispatch(DoctorsActions.loadDoctors());
   }
 }
