@@ -1,12 +1,13 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
-import { AuthService } from '../../auth/services/auth.service';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { Store } from '@ngrx/store';
+import * as loginActions from '../../login/state/login.actions';
 
 @Component({
   selector: 'app-home',
@@ -24,13 +25,11 @@ import { MatListModule } from '@angular/material/list';
   styleUrl: './home.scss',
 })
 export class Home {
-  private authService = inject(AuthService);
-  private router = inject(Router);
+  private store = inject(Store);
 
   currentYear: number = new Date().getFullYear();
 
   logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+    this.store.dispatch(loginActions.logout());
   }
 }

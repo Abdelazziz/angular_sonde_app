@@ -1,18 +1,18 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
-import {
-  FormBuilder,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { AuthService } from '../../auth/services/auth.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { trimRequired } from '../../../utils/app.utilities';
+import { Store } from '@ngrx/store';
+import * as loginActions from '../state/login.actions';
+import {
+  selectAuthLoading,
+  selectAuthSuccess,
+  selectAuthError,
+} from '../state/login.selector';
 
 @Component({
   selector: 'app-login',
@@ -27,11 +27,10 @@ import { trimRequired } from '../../../utils/app.utilities';
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
-export class Login {
+export class Login implements OnInit {
   private formBuilder = inject(FormBuilder);
-  private authService = inject(AuthService);
-  private destroyRef = inject(DestroyRef);
   private router = inject(Router);
+  private store = inject(Store);
 
   loginForm = this.formBuilder.group({
     id: this.formBuilder.control<string>('', {
@@ -51,6 +50,24 @@ export class Login {
   erroEmptyID = 'Identifiant obligatoire';
   erroEmptyPassword = 'Le mot de passe est obligatoire';
 
+  ngOnInit(): void {
+    this.store.select(selectAuthLoading).subscribe((loading) => {
+      this.loading.set(loading);
+    });
+
+    this.store.select(selectAuthSuccess).subscribe((response) => {
+      if (response) {
+        this.router.navigate(['/home']);
+      }
+    });
+
+    this.store.select(selectAuthError).subscribe((error) => {
+      if (error) {
+        this.errorMessage.set(error);
+      }
+    });
+  }
+
   togglePasswordVisibility() {
     this.hidePassword.update((v) => !v);
   }
@@ -64,27 +81,8 @@ export class Login {
     const useName: string = this.loginForm.controls.id.value.trim();
     const password: string = this.loginForm.controls.password.value.trim();
 
-    this.loading.set(true);
-    this.errorMessage.set('');
-
-    this.authService
-      .login(useName, password)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (res) => {
-          this.loading.set(false);
-          this.router.navigate(['/home']);
-        },
-        error: (err) => {
-          this.loading.set(false);
-          console.error('Login failed', err);
-
-          if (err.status === 401) {
-            this.errorMessage.set('Invalid credentials.');
-          } else {
-            this.errorMessage.set('Login failed. Please try again.');
-          }
-        },
-      });
+    this.store.dispatch(
+      loginActions.login({ username: useName, password: password })
+    );
   }
 }

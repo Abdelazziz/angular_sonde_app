@@ -1,4 +1,4 @@
-import { inject, DestroyRef } from '@angular/core';
+import { inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { mergeMap, map, catchError, of } from 'rxjs';
 import * as PatientsFilterActions from './filter.patient.data.actions';

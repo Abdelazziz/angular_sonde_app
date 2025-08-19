@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpService } from '../../../core/service/http.service';
 import { AppConfig } from '../../../utils/app.config';
 import { PatientDataResponse } from '../models/patient.data.response';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { FilterRequest } from '../models/filter.request';
 
 @Injectable({
